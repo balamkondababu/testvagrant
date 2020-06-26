@@ -31,6 +31,8 @@ public class WeatherReportPage extends DriverSetup {
     @FindBy(xpath = "//div[@class='leaflet-popup-content']//b")
     private List<WebElement> weatherDetails;
 
+    HashMap<String, String> cityWeatherDetails
+            = new HashMap<>();
 
     public WeatherReportPage(){
         this.driver = driver;
@@ -76,16 +78,18 @@ public class WeatherReportPage extends DriverSetup {
     public void selectCityInMap(String cityName) {
 
         driver.findElement(By.xpath("//div[@title='"+cityName+"']")).click();
+        WebDriverWait wait = new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.elementToBeClickable(weatherDetails.get(0)));
     }
 
-    public void getWeatherDetails() {
-        HashMap<String, String> cityWeatherDetails
-                = new HashMap<>();
+    public void getWeatherDetails(HashMap<String,Object> cityWeatherDetails) {
+
         cityWeatherDetails.put("Condition",weatherDetails.get(0).getText().split(":")[1]);
         cityWeatherDetails.put("Wind",weatherDetails.get(1).getText().split(":")[1]);
         cityWeatherDetails.put("Humidity",weatherDetails.get(2).getText().split(":")[1]);
         cityWeatherDetails.put("Temperature in Degrees",weatherDetails.get(3).getText().split(":")[1]);
         cityWeatherDetails.put("Temperature in Fahrenheit",weatherDetails.get(4).getText().split(":")[1]);
+        System.out.println(cityWeatherDetails);
     }
 
 }
