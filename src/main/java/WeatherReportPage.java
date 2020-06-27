@@ -31,11 +31,8 @@ public class WeatherReportPage extends DriverSetup {
     @FindBy(xpath = "//div[@class='leaflet-popup-content']//b")
     private List<WebElement> weatherDetails;
 
-    HashMap<String, String> cityWeatherDetails
-            = new HashMap<>();
-
     public WeatherReportPage(){
-        this.driver = driver;
+        driver = driver;
         PageFactory.initElements(driver,this);
     }
 
@@ -82,13 +79,12 @@ public class WeatherReportPage extends DriverSetup {
         wait.until(ExpectedConditions.elementToBeClickable(weatherDetails.get(0)));
     }
 
-    public void getWeatherDetails(HashMap<String,Object> cityWeatherDetails) {
+    public void getWeatherDetails(HashMap<String,String> cityWeatherDetails, String cityName) {
 
-        cityWeatherDetails.put("Condition",weatherDetails.get(0).getText().split(":")[1]);
-        cityWeatherDetails.put("Wind",weatherDetails.get(1).getText().split(":")[1]);
-        cityWeatherDetails.put("Humidity",weatherDetails.get(2).getText().split(":")[1]);
-        cityWeatherDetails.put("Temperature in Degrees",weatherDetails.get(3).getText().split(":")[1]);
-        cityWeatherDetails.put("Temperature in Fahrenheit",weatherDetails.get(4).getText().split(":")[1]);
+        cityWeatherDetails.put("City",cityName);
+        cityWeatherDetails.put("Wind",weatherDetails.get(1).getText().split(":")[1].trim().split("KPH")[0].trim());
+        cityWeatherDetails.put("Humidity",weatherDetails.get(2).getText().split(":")[1].replace("%","").trim());
+        cityWeatherDetails.put("Temperature in Degrees", weatherDetails.get(3).getText().split(":")[1].trim());
         System.out.println(cityWeatherDetails);
     }
 

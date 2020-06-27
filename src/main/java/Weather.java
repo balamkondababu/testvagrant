@@ -16,10 +16,19 @@ public class Weather {
     int dt;
     Long timezone;
     int cod;
+    HashMap<String,Integer> rain;
 
 
     public Weather() {
 
+    }
+
+    public void setRain(HashMap<String, Integer> rain) {
+        this.rain = rain;
+    }
+
+    public HashMap<String, Integer> getRain() {
+        return rain;
     }
 
     public void setWeather(List<WeatherDetails> weather) {

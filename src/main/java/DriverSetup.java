@@ -12,6 +12,7 @@ public class DriverSetup {
     Properties config = new Properties();
     public static WebDriver driver = null;
     public static WeatherReportPage weatherReportPage = null;
+    public static CompareAndVarianceLogic compareAndVarianceLogic =null;
 
     public void loadConfigProperty() throws IOException {
         config = new Properties();
@@ -55,6 +56,7 @@ public class DriverSetup {
         driver.manage().window().maximize();
         driver.get(config.getProperty("url"));
         weatherReportPage = new WeatherReportPage();
+        compareAndVarianceLogic = new CompareAndVarianceLogic();
     }
 
     @AfterTest
